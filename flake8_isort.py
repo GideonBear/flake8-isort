@@ -17,6 +17,7 @@ class Flake8IsortBase:
     isort_add_unexp = 'I005 isort found an unexpected missing import'
 
     show_traceback = False
+    config_file = None
     stdin_display_name = None
     search_current = True
 
@@ -31,10 +32,17 @@ class Flake8IsortBase:
             parse_from_config=True,
             help='Show full traceback with diff from isort',
         )
+        option_manager.add_option(
+            '--isort-config-file',
+            type=Path,
+            parse_from_config=True,
+            help='Path of config file for isort'
+        )
 
     def parse_options(self, option_manager, options, args):
         self.stdin_display_name = options.stdin_display_name
         self.show_traceback = options.isort_show_traceback
+        self.config_file = options.isort_config_file
 
 
 class Flake8Isort4(Flake8IsortBase):
